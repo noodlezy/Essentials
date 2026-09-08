@@ -1,6 +1,6 @@
 //Maya ASCII 2027 scene
 //Name: Bouncy Ball.ma
-//Last modified: Mon, Sep 07, 2026 07:46:35 PM
+//Last modified: Mon, Sep 07, 2026 07:58:25 PM
 //Codeset: 1252
 requires maya "2027";
 requires "stereoCamera" "10.0";
@@ -12,11 +12,11 @@ fileInfo "product" "Maya 2027";
 fileInfo "version" "2027";
 fileInfo "cutIdentifier" "202607171511-52c21617ee";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 26200)";
-fileInfo "UUID" "E08ECFB2-47FB-F457-9D0E-F0BCCBDB684A";
+fileInfo "UUID" "B8CCA691-4C46-2FB7-7D4C-BB8426FB5C51";
 createNode transform -s -n "persp";
 	rename -uid "1F2FD2E1-466D-F05C-1CBE-B8956B249D1A";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 41.270329596033207 3.835402857930355 -37.421649726195731 ;
+	setAttr ".t" -type "double3" 20.672117371311934 1.9211355669186876 -18.744331410484765 ;
 	setAttr ".r" -type "double3" -3.9383527295997602 132.19999999999916 0 ;
 	setAttr ".rp" -type "double3" -3.5527136788005009e-15 7.1054273576010019e-15 -3.5527136788005009e-15 ;
 	setAttr ".rpt" -type "double3" 1.6651181730002221e-15 1.2119670059487125e-15 -4.8513503153680472e-15 ;
@@ -24,7 +24,7 @@ createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "75FCF3C1-4466-594E-22C0-568228A34A71";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 55.842011857363147;
+	setAttr ".coi" 27.971005675625118;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -556,8 +556,8 @@ createNode script -n "sceneConfigurationScriptNode";
 	setAttr ".b" -type "string" "playbackOptions -min 1 -max 44 -ast 1 -aet 44 ";
 	setAttr ".st" 6;
 select -ne :time1;
-	setAttr ".o" 20;
-	setAttr ".unw" 20;
+	setAttr ".o" 9;
+	setAttr ".unw" 9;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
