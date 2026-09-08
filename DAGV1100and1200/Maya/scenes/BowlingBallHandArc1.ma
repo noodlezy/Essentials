@@ -1,11 +1,13 @@
 //Maya ASCII 2027 scene
 //Name: BowlingBallHandArc1.ma
-//Last modified: Mon, Sep 07, 2026 09:53:31 PM
+//Last modified: Tue, Sep 08, 2026 01:07:53 PM
 //Codeset: 1252
 requires maya "2027";
 requires -nodeType "materialxStack" -nodeType "MaterialXSurfaceShader" -dataType "MxDocumentStackData"
 		 "LookdevXMaya" "2.2.0";
 requires "stereoCamera" "10.0";
+requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
+		 "mtoa" "5.6.2";
 requires -nodeType "UsdDefaultSettings" -dataType "pxrUsdStageData" "mayaUsdPlugin" "0.37.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -13,23 +15,23 @@ fileInfo "product" "Maya 2027";
 fileInfo "version" "2027";
 fileInfo "cutIdentifier" "202607171511-52c21617ee";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 26200)";
-fileInfo "UUID" "2D744407-4357-C1F9-9C18-3F9983856398";
+fileInfo "UUID" "D1A1E0D9-4FF0-BEDC-F6ED-4598B34E8828";
 createNode transform -s -n "persp";
 	rename -uid "1DFBA4A4-134A-59AA-2739-3C93ABFFD067";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 52.127854101720914 18.126100946337687 70.689566344553469 ;
-	setAttr ".r" -type "double3" -6.9383527296032961 39.400000000001 0 ;
-	setAttr ".rp" -type "double3" 4.4408920985006262e-16 0 0 ;
-	setAttr ".rpt" -type "double3" -3.2940576251321804e-16 -4.1851265083686936e-17 -4.2622387617709342e-16 ;
+	setAttr ".t" -type "double3" 14.825158186293496 7.8935844319838528 60.407959218022278 ;
+	setAttr ".r" -type "double3" -0.9383527296024966 15.799999999999896 2.5823756795270794e-17 ;
+	setAttr ".rp" -type "double3" 2.2204460492503131e-16 -3.5527136788005009e-15 0 ;
+	setAttr ".rpt" -type "double3" 3.2812468652365076e-15 8.2654076281725065e-16 -3.6418585960503374e-15 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "8426FD61-B94B-9F60-1746-D0BED0796422";
 	setAttr -k off ".v" no;
-	setAttr ".fl" 34.999999999999979;
-	setAttr ".coi" 91.904636526175295;
+	setAttr ".fl" 34.999999999999993;
+	setAttr ".coi" 62.788330464845743;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -5.7796207911081261 7.0238972258696331 0.1918526291847229 ;
+	setAttr ".tp" -type "double3" -2.2685712697222136 6.8653242699431534 0 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	rename -uid "A0625FFD-8144-79E0-F421-5198F335BACA";
@@ -608,9 +610,25 @@ createNode animCurveTL -n "pSphere1_translateZ";
 		 48 -2.1316282072803006e-14;
 createNode polySphere -n "polySphere1";
 	rename -uid "7F665481-4229-137C-3649-0184B855FD16";
+createNode aiOptions -s -n "defaultArnoldRenderOptions";
+	rename -uid "9ACE0245-4784-5F01-CDB5-A6A208CEC9D8";
+	addAttr -ci true -sn "ARV_options" -ln "ARV_options" -dt "string";
+	setAttr ".version" -type "string" "5.6.2";
+createNode aiAOVFilter -s -n "defaultArnoldFilter";
+	rename -uid "77057436-42D4-26DE-0290-7587A1D76922";
+	setAttr ".ai_translator" -type "string" "gaussian";
+createNode aiAOVDriver -s -n "defaultArnoldDriver";
+	rename -uid "7FDC1356-4A1A-49B0-42C2-27A74CAA86A7";
+	setAttr ".ai_translator" -type "string" "exr";
+createNode aiAOVDriver -s -n "defaultArnoldDisplayDriver";
+	rename -uid "448ECC0C-43A2-53A8-373E-19B2B1D2C118";
+	setAttr ".ai_translator" -type "string" "maya";
+	setAttr ".output_mode" 0;
+createNode aiImagerDenoiserOidn -s -n "defaultArnoldDenoiser";
+	rename -uid "45782A8A-4131-A543-2FC5-4FB284E3AC64";
 select -ne :time1;
-	setAttr ".o" 1;
-	setAttr ".unw" 1;
+	setAttr ".o" 21;
+	setAttr ".unw" 21;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
@@ -639,6 +657,8 @@ select -ne :initialParticleSE;
 select -ne :defaultRenderGlobals;
 	addAttr -ci true -h true -sn "dss" -ln "defaultSurfaceShader" -dt "string";
 	setAttr ".ren" -type "string" "arnold";
+	setAttr ".outf" 51;
+	setAttr ".imfkey" -type "string" "exr";
 	setAttr ".dss" -type "string" "openPBR_shader1";
 select -ne :defaultResolution;
 	setAttr ".pa" 1;
@@ -654,6 +674,8 @@ select -ne :defaultColorMgtGlobals;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
+select -ne :ikSystem;
+	setAttr -s 4 ".sol";
 connectAttr "Arm_visibility.o" "Arm.v";
 connectAttr "Arm_translateX.o" "Arm.tx";
 connectAttr "Arm_translateY.o" "Arm.ty";
@@ -711,6 +733,12 @@ connectAttr "ArmShape.iog" "Maya_Lambert1SG.dsm" -na;
 connectAttr "Maya_Lambert1SG.msg" "materialInfo1.sg";
 connectAttr "Maya_Lambert1.msg" "materialInfo1.m";
 connectAttr "Maya_Lambert1.msg" "materialInfo1.t" -na;
+connectAttr ":defaultArnoldDenoiser.msg" ":defaultArnoldRenderOptions.imagers" -na
+		;
+connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drivers"
+		 -na;
+connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
+connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "trackInfoManager1.msg" ":sequenceManager1.tim";
 connectAttr "Maya_Lambert1SG.pa" ":renderPartition.st" -na;
 connectAttr "Maya_Lambert1.msg" ":defaultShaderList1.s" -na;
